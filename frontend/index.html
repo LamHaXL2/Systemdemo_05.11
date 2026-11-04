@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0b2833">
+    <title>Auslastung / Schichtmonitor | Werk Nord</title>
+    <link rel="stylesheet" href="./styles.css">
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="./" aria-label="Werk Nord Produktionsmonitor">
+        <svg class="brand-mark" viewBox="0 0 28 30" aria-hidden="true">
+          <path d="M2 18h6v10H2zM11 10h6v18h-6zM20 2h6v26h-6z" fill="currentColor"></path>
+        </svg>
+        <span class="brand-copy">
+          <strong>WERK NORD</strong>
+          <span>PRODUKTIONSMONITOR</span>
+        </span>
+      </a>
+
+      <div class="topbar-meta">
+        <span class="environment"><span class="status-dot"></span> INTRANET · MONTAGE</span>
+        <span class="topbar-date" id="header-date"></span>
+        <button class="refresh-button" id="refresh-button" type="button">
+          <svg viewBox="0 0 20 20" aria-hidden="true">
+            <path d="M16.5 9.5a6.5 6.5 0 1 1-1.6-4.3M16.5 3.5v4h-4"></path>
+            <path d="M16.5 7.5V3.5h-4"></path>
+          </svg>
+          <span>Daten jetzt aktualisieren</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="dashboard">
+      <section class="page-heading" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">WERK NORD / MONTAGE · BANDABSCHNITT 7</p>
+          <h1 id="page-title">Auslastung / Schichtmonitor</h1>
+        </div>
+        <label class="team-picker">
+          <span>TEAM</span>
+          <select id="team-select" aria-label="Team auswählen">
+            <option value="7A">7A</option>
+            <option value="7B">7B</option>
+          </select>
+        </label>
+      </section>
+
+      <div class="load-error" id="load-error" role="alert" hidden></div>
+
+      <section class="shift-summary" aria-label="Schichtinformationen">
+        <div class="shift-info">
+          <strong id="shift-name">Frühschicht</strong>
+          <span class="summary-divider" aria-hidden="true"></span>
+          <span id="shift-date"></span>
+        </div>
+        <div class="sample-info">
+          <span class="sample-badge">BEISPIELDATEN</span>
+          <span class="updated-at" id="updated-at">Noch nicht aktualisiert</span>
+        </div>
+      </section>
+
+      <section class="metric-grid" aria-label="Aktuelle Kennzahlen">
+        <article class="metric-card metric-card--green">
+          <p class="metric-label">ARBEITSPLÄTZE</p>
+          <p class="metric-value"><span id="workstation-count">–</span><small> AP</small></p>
+          <p class="metric-description" id="workstation-description"></p>
+        </article>
+        <article class="metric-card metric-card--red">
+          <p class="metric-label">ÜBERLAST AKTUELL</p>
+          <p class="metric-value metric-value--red"><span id="overload-count">–</span><small> / <span id="overload-total">–</span></small></p>
+          <p class="metric-description">Arbeitsplätze über 100 %</p>
+        </article>
+        <article class="metric-card metric-card--neutral">
+          <p class="metric-label">Ø AUSLASTUNG AKTUELL</p>
+          <p class="metric-value"><span id="average-load">–</span><small> %</small></p>
+          <p class="metric-description">über alle Arbeitsplätze</p>
+        </article>
+        <article class="metric-card metric-card--orange">
+          <p class="metric-label">VORSCHAU</p>
+          <p class="metric-value"><span id="preview-count">–</span><small> FENSTER</small></p>
+          <p class="metric-description">kommende Stundenfenster</p>
+        </article>
+      </section>
+
+      <section class="live-section" aria-labelledby="live-title">
+        <div class="live-heading">
+          <div>
+            <p class="eyebrow">LIVE-ÜBERSICHT · TEAM <span id="live-team">7A</span></p>
+            <h2 id="live-title">Auslastung je Stundenfenster</h2>
+          </div>
+          <div class="legend" aria-label="Legende">
+            <span><i class="legend-dot legend-dot--green"></i> bis 100 %</span>
+            <span><i class="legend-dot legend-dot--red"></i> über 100 %</span>
+            <span><i class="legend-outline"></i> Fensterüberlast</span>
+          </div>
+        </div>
+
+        <div class="table-scroll" tabindex="0" role="region" aria-label="Auslastungstabelle; horizontal scrollbar auf kleinen Bildschirmen">
+          <table class="workload-table">
+            <thead id="table-head"></thead>
+            <tbody id="table-body"></tbody>
+          </table>
+        </div>
+
+        <div class="table-notes">
+          <p>Auslastung in Prozent der verfügbaren Arbeitszeit, Pausen bereits berücksichtigt.</p>
+          <div class="overload-key">
+            <span>ÜBERLAST-RAHMEN</span>
+            <span><i class="key-outline key-outline--amber"></i> 1–2 AP</span>
+            <span><i class="key-outline key-outline--red"></i> ab 3 AP</span>
+          </div>
+        </div>
+      </section>
+
+      <footer class="dashboard-footer">
+        <span>WERK NORD · MONTAGE BANDABSCHNITT 7</span>
+        <span>AUTOMATISCHE AKTUALISIERUNG · ALLE 3 MINUTEN</span>
+      </footer>
+    </main>
+  </body>
+</html>
