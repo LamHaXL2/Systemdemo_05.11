@@ -1,0 +1,32 @@
+{
+  "inputs": [
+    {
+      "id": "wlm_services_github_token",
+      "type": "promptString",
+      "description": "Fine-grained GitHub token restricted to fss-aspp-wlm/wlm-services",
+      "password": true
+    }
+  ],
+  "servers": {
+    "playwright": {
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "-y",
+        "@playwright/mcp@latest",
+        "--browser",
+        "chromium"
+      ]
+    },
+    "github-wlm-services": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "requestInit": {
+        "headers": {
+          "Authorization": "Bearer ${input:wlm_services_github_token}"
+        }
+      }
+    }
+  }
+}
